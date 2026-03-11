@@ -278,7 +278,7 @@ export function UTMBuilder() {
           </button>
           <button
             onClick={handleReset}
-            className="px-4 py-3.5 text-[11px] rounded-lg tracking-widest uppercase font-mono border border-orange-500 text-paper hover:border-orange-500 hover:text-orange-500 rounded duration-200 transition-colors ease-in-out delay-80"
+            className="px-4 py-3.5 text-[11px] rounded-lg tracking-widest uppercase font-mono border border-orange-500/50 text-orange-500/50 hover:border-orange-500 hover:text-orange-500 rounded duration-200 transition-colors ease-in-out delay-80"
           >
             limpar
           </button>
