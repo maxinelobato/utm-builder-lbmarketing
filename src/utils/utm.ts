@@ -1,16 +1,37 @@
 import type { UTMForm, UTMErrors } from '../types/utm';
 
 export const SOURCES = [
-  'google', 'facebook', 'instagram', 'linkedin',
-  'twitter', 'tiktok', 'email', 'youtube', 'bing', 'outro',
+  'google',
+  'facebook',
+  'instagram',
+  'linkedin',
+  'twitter',
+  'tiktok',
+  'email',
+  'youtube',
+  'bing',
+  'outro',
 ] as const;
 
 export const MEDIUMS = [
-  'cpc', 'email', 'social', 'organic',
-  'referral', 'display', 'video', 'sms', 'outro',
+  'cpc',
+  'email',
+  'social',
+  'organic',
+  'referral',
+  'display',
+  'video',
+  'sms',
+  'outro',
 ] as const;
 
-export const UTM_PARAMS = ['source', 'medium', 'campaign', 'content', 'term'] as const;
+export const UTM_PARAMS = [
+  'source',
+  'medium',
+  'campaign',
+  'content',
+  'term',
+] as const;
 
 export function slugify(str: string): string {
   return str

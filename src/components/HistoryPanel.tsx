@@ -6,7 +6,11 @@ interface HistoryPanelProps {
   onClear: () => void;
 }
 
-export function HistoryPanel({ entries, onSelect, onClear }: HistoryPanelProps) {
+export function HistoryPanel({
+  entries,
+  onSelect,
+  onClear,
+}: HistoryPanelProps) {
   if (entries.length === 0) {
     return (
       <div className="text-center py-10 text-[#3a3a3a] text-xs font-mono tracking-widest">
@@ -29,19 +33,27 @@ export function HistoryPanel({ entries, onSelect, onClear }: HistoryPanelProps) 
         </button>
       </div>
       <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
-        {entries.slice().reverse().map((entry) => (
-          <button
-            key={entry.id}
-            onClick={() => onSelect(entry)}
-            className="w-full text-left bg-[#0d0d0d] border border-[#1e1e1e] hover:border-acid/20 rounded p-3 transition-all duration-200 group"
-          >
-            <div className="text-[10px] text-orange-400 font-mono truncate mb-1.5 group-hover:text-[#d8ff5a]">
-              {entry.params['utm_source']} · {entry.params['utm_medium']} · {entry.params['utm_campaign']}
-            </div>
-            <div className="text-[10px] text-[#4a4a40] font-mono truncate">{entry.url}</div>
-            <div className="text-[9px] text-[#3a3a3a] font-mono mt-1.5">{entry.generatedAt}</div>
-          </button>
-        ))}
+        {entries
+          .slice()
+          .reverse()
+          .map((entry) => (
+            <button
+              key={entry.id}
+              onClick={() => onSelect(entry)}
+              className="w-full text-left bg-[#0d0d0d] border border-[#1e1e1e] hover:border-acid/20 rounded p-3 transition-all duration-200 group"
+            >
+              <div className="text-[10px] text-orange-400 font-mono truncate mb-1.5 group-hover:text-[#d8ff5a]">
+                {entry.params['utm_source']} · {entry.params['utm_medium']} ·{' '}
+                {entry.params['utm_campaign']}
+              </div>
+              <div className="text-[10px] text-[#4a4a40] font-mono truncate">
+                {entry.url}
+              </div>
+              <div className="text-[9px] text-[#3a3a3a] font-mono mt-1.5">
+                {entry.generatedAt}
+              </div>
+            </button>
+          ))}
       </div>
     </div>
   );

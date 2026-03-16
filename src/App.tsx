@@ -1,7 +1,7 @@
-import { UTMBuilder } from './components/UTMBuilder'
+import { UTMBuilder } from './components/UTMBuilder';
 
 function App() {
-  return <UTMBuilder />
+  return <UTMBuilder />;
 }
 
-export default App
+export default App;

@@ -3,9 +3,15 @@ import { URLPreview } from './URLPreview';
 import { ParamTag } from './ParamTag';
 import { HistoryPanel } from './HistoryPanel';
 import {
-  SOURCES, MEDIUMS, UTM_PARAMS,
-  slugify, buildUTMUrl, validateForm,
-  getSourceValue, getMediumValue, getUTMParams,
+  SOURCES,
+  MEDIUMS,
+  UTM_PARAMS,
+  slugify,
+  buildUTMUrl,
+  validateForm,
+  getSourceValue,
+  getMediumValue,
+  getUTMParams,
   INITIAL_FORM,
 } from '../utils/utm';
 import type { UTMForm, UTMErrors, HistoryEntry } from '../types/utm';
@@ -21,24 +27,37 @@ export function UTMBuilder() {
     setForm((f) => ({ ...f, [key]: value }));
 
   const clearError = (key: keyof UTMErrors) =>
-    setErrors((e) => { const n = { ...e }; delete n[key]; return n; });
+    setErrors((e) => {
+      const n = { ...e };
+      delete n[key];
+      return n;
+    });
 
   const generated = useMemo(() => buildUTMUrl(form), [form]);
 
   const isParamActive = (param: string): boolean => {
     switch (param) {
-      case 'source': return !!getSourceValue(form);
-      case 'medium': return !!getMediumValue(form);
-      case 'campaign': return !!slugify(form.campaign);
-      case 'content': return !!slugify(form.content);
-      case 'term': return !!slugify(form.term);
-      default: return false;
+      case 'source':
+        return !!getSourceValue(form);
+      case 'medium':
+        return !!getMediumValue(form);
+      case 'campaign':
+        return !!slugify(form.campaign);
+      case 'content':
+        return !!slugify(form.content);
+      case 'term':
+        return !!slugify(form.term);
+      default:
+        return false;
     }
   };
 
   const handleCopy = async () => {
     const errs = validateForm(form);
-    if (Object.keys(errs).length) { setErrors(errs); return; }
+    if (Object.keys(errs).length) {
+      setErrors(errs);
+      return;
+    }
     setErrors({});
 
     await navigator.clipboard.writeText(generated);
@@ -76,14 +95,16 @@ export function UTMBuilder() {
 
   return (
     <div className="min-h-screen bg-ink text-paper font-mono">
-
       {/* Header */}
       <header className="border-b border-[#1a1a1a] px-6 md:px-10 py-7 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <div className="text-[10px] tracking-[0.2em] text-[#4a4a40] uppercase mb-2 font-mono">— ferramenta</div>
+          <div className="text-[10px] tracking-[0.2em] text-[#4a4a40] uppercase mb-2 font-mono">
+            — ferramenta
+          </div>
           <h1 className="font-display font-bold text-3xl md:text-4xl tracking-tight leading-none">
             UTM{' '}
-            <span className="text-orange-400 italic font-light">Builder</span> | lbmarketing
+            <span className="text-orange-400 italic font-light">Builder</span> |
+            lbmarketing
           </h1>
         </div>
 
@@ -96,9 +117,10 @@ export function UTMBuilder() {
             className={`
               ml-2 text-[10px] tracking-widest uppercase font-mono px-3 py-1.5 rounded-full
               border transition-all duration-200
-              ${showHistory
-                ? 'bg-acid/10 border-acid/33 text-orange-400'
-                : 'border-border text-[#4a4a40] hover:border-[#3a3a38] hover:text-[#8a8a85]'
+              ${
+                showHistory
+                  ? 'bg-acid/10 border-acid/33 text-orange-400'
+                  : 'border-border text-[#4a4a40] hover:border-[#3a3a38] hover:text-[#8a8a85]'
               }
             `}
           >
@@ -120,9 +142,11 @@ export function UTMBuilder() {
 
       {/* Main form */}
       <main className="max-w-2xl mx-auto px-5 md:px-6 py-10 space-y-7">
-
         {/* URL */}
-        <div className="space-y-1.5 animate-fade-up" style={{ animationDelay: '0ms' }}>
+        <div
+          className="space-y-1.5 animate-fade-up"
+          style={{ animationDelay: '0ms' }}
+        >
           <label className="field-label">
             URL de destino <span className="text-orange-400">*</span>
           </label>
@@ -131,9 +155,14 @@ export function UTMBuilder() {
             type="text"
             placeholder="https://seusite.com/pagina"
             value={form.url}
-            onChange={(e) => { set('url', e.target.value); clearError('url'); }}
+            onChange={(e) => {
+              set('url', e.target.value);
+              clearError('url');
+            }}
           />
-          {errors.url && <p className="text-[10px] text-red-400 font-mono">{errors.url}</p>}
+          {errors.url && (
+            <p className="text-[10px] text-red-400 font-mono">{errors.url}</p>
+          )}
         </div>
 
         <div className="border-t border-[#1a1a1a]" />
@@ -153,10 +182,19 @@ export function UTMBuilder() {
               <select
                 className={`field-input rounded-lg ${errors.source ? 'field-input-error' : ''}`}
                 value={form.source}
-                onChange={(e) => { set('source', e.target.value); clearError('source'); }}
+                onChange={(e) => {
+                  set('source', e.target.value);
+                  clearError('source');
+                }}
               >
-                <option value="" className='rounded-lg'>— selecione</option>
-                {SOURCES.map((s) => <option className='rounded-lg' key={s} value={s}>{s}</option>)}
+                <option value="" className="rounded-lg">
+                  — selecione
+                </option>
+                {SOURCES.map((s) => (
+                  <option className="rounded-lg" key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
               </select>
               {form.source === 'outro' && (
                 <input
@@ -166,7 +204,11 @@ export function UTMBuilder() {
                   onChange={(e) => set('sourceCustom', e.target.value)}
                 />
               )}
-              {errors.source && <p className="text-[10px] text-red-400 font-mono">{errors.source}</p>}
+              {errors.source && (
+                <p className="text-[10px] text-red-400 font-mono">
+                  {errors.source}
+                </p>
+              )}
             </div>
 
             {/* Medium */}
@@ -177,10 +219,19 @@ export function UTMBuilder() {
               <select
                 className={`field-input rounded-lg ${errors.medium ? 'field-input-error' : ''}`}
                 value={form.medium}
-                onChange={(e) => { set('medium', e.target.value); clearError('medium'); }}
+                onChange={(e) => {
+                  set('medium', e.target.value);
+                  clearError('medium');
+                }}
               >
-                <option value="" className='rounded-lg'>— selecione</option>
-                {MEDIUMS.map((m) => <option className='rounded-lg' key={m} value={m}>{m}</option>)}
+                <option value="" className="rounded-lg">
+                  — selecione
+                </option>
+                {MEDIUMS.map((m) => (
+                  <option className="rounded-lg" key={m} value={m}>
+                    {m}
+                  </option>
+                ))}
               </select>
               {form.medium === 'outro' && (
                 <input
@@ -190,7 +241,11 @@ export function UTMBuilder() {
                   onChange={(e) => set('mediumCustom', e.target.value)}
                 />
               )}
-              {errors.medium && <p className="text-[10px] text-red-400 font-mono">{errors.medium}</p>}
+              {errors.medium && (
+                <p className="text-[10px] text-red-400 font-mono">
+                  {errors.medium}
+                </p>
+              )}
             </div>
           </div>
 
@@ -203,14 +258,22 @@ export function UTMBuilder() {
               className={`field-input rounded-lg ${errors.campaign ? 'field-input-error' : ''}`}
               placeholder="ex: black friday 2026"
               value={form.campaign}
-              onChange={(e) => { set('campaign', e.target.value); clearError('campaign'); }}
+              onChange={(e) => {
+                set('campaign', e.target.value);
+                clearError('campaign');
+              }}
             />
             {form.campaign && (
               <p className="text-[10px] text-[#3a3a3a] font-mono text-right">
-                slug: <span className="text-muted">{slugify(form.campaign)}</span>
+                slug:{' '}
+                <span className="text-muted">{slugify(form.campaign)}</span>
               </p>
             )}
-            {errors.campaign && <p className="text-[10px] text-red-400 font-mono">{errors.campaign}</p>}
+            {errors.campaign && (
+              <p className="text-[10px] text-red-400 font-mono">
+                {errors.campaign}
+              </p>
+            )}
           </div>
         </div>
 
@@ -232,7 +295,8 @@ export function UTMBuilder() {
               />
               {form.content && (
                 <p className="text-[10px] text-[#3a3a3a] font-mono text-right">
-                  slug: <span className="text-muted">{slugify(form.content)}</span>
+                  slug:{' '}
+                  <span className="text-muted">{slugify(form.content)}</span>
                 </p>
               )}
             </div>
@@ -256,21 +320,28 @@ export function UTMBuilder() {
         <div className="border-t border-[#1a1a1a]" />
 
         {/* Preview */}
-        <div className="space-y-2 animate-fade-up" style={{ animationDelay: '180ms' }}>
+        <div
+          className="space-y-2 animate-fade-up"
+          style={{ animationDelay: '180ms' }}
+        >
           <label className="field-label">Prévia da URL gerada</label>
           <URLPreview url={generated} />
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-3 animate-fade-up" style={{ animationDelay: '220ms' }}>
+        <div
+          className="flex items-center gap-3 animate-fade-up"
+          style={{ animationDelay: '220ms' }}
+        >
           <button
             onClick={handleCopy}
             className={`
               px-7 py-3.5 text-[12px] rounded-lg tracking-widest uppercase font-mono font-medium rounded
               transition-all duration-150 active:scale-[0.98]
-              ${copied
-                ? 'bg-[#4adf8a] text-ink'
-                : 'bg-orange-600 text-paper hover:bg-orange-500 duration-200 transition-colors ease-in-out delay-80'
+              ${
+                copied
+                  ? 'bg-[#4adf8a] text-ink'
+                  : 'bg-orange-600 text-paper hover:bg-orange-500 duration-200 transition-colors ease-in-out delay-80'
               }
             `}
           >

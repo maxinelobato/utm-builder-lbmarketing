@@ -6,7 +6,9 @@ export function URLPreview({ url }: URLPreviewProps) {
   if (!url) {
     return (
       <div className="bg-[#0d0d0d] border border-[#1e1e1e] rounded-lg p-4 min-h-[54px] text-[11px] font-mono">
-        <span className="text-border">preencha os campos acima para ver a prévia...</span>
+        <span className="text-border">
+          preencha os campos acima para ver a prévia...
+        </span>
       </div>
     );
   }
